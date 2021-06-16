@@ -1,2 +1,5 @@
 settings.py
 env
+.vscode
+__pycache__
+record.json
