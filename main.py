@@ -23,9 +23,18 @@ def checkout(branch_name: str):
 
 def update(branch_name: str):
   repo = Repo(REPO_NAME)
-  output = repo.git.pull()
+  # loop infinitely until the fetch works
+  while True:
+    try:
+      output = repo.git.pull()
+      # if completes with no errors, break out of loop
+      break
+    except git.exc.GitCommandError as e:
+      print(f'exception at {dt.now()}:\n{e}')
+      print('waiting 5 minutes...')
+      time.sleep(60*5)
   if not 'Already up to date.' in output:
-    print(f"updated! ({dt.now()}")
+    print(f"updated! ({dt.now()})")
     commit = repo.commit('HEAD')
     pr_name = commit.message.split('\n')[0]
     print(pr_name)
@@ -57,14 +66,18 @@ def read_and_update_record(author_name: str):
       json_file.write(json.dumps(dev_record))
 
 def get_message(author_name: str, pr_name: str) -> str:
-  if author_name == "Mark Brown":
-    return f':flag-ca: :flag-ca: :flag-ca: :flag-ca: Congratulations to ${author_name} for merging ${pr_name} into develop! :flag-ca: :flag-ca: :flag-ca: :flag-ca:'
+  if author_name in ["Mark Brown", "Mark W. Brown"]:
+    return f':flag-ca: :flag-ca: :flag-ca: :flag-ca: Congratulations to {author_name} for merging {pr_name} into develop! :flag-ca: :flag-ca: :flag-ca: :flag-ca:'
   elif author_name == "Brian Hughes":
-    return f'Notice: :qt: QML SME ${author_name} has merged ${pr_name} into develop'
+    return f'Notice: :qt: QML SME {author_name} has merged {pr_name} into develop'
   elif author_name == "Daschel Fortner":
-    return f":bologna: SME ${author_name} has merged ${pr_name}. It's probably mostly :bologna:."
+    return f":bologna: SME {author_name} has merged {pr_name}. It's probably mostly :bologna:."
   elif author_name == "Josiah Lansford":
-    return f":${author_name} just merged ${pr_name} into develop. Consider reverting immediately. :bread:"
+    return f":bread: {author_name} just merged {pr_name} into develop. Consider reverting immediately. :bread:"
+  elif author_name == "Michael Linger":
+    return f'🎉 Congratulations to {author_name} for merging {pr_name} to develop! 🎉:poop:'
+  elif author_name == "Caleb Baker":
+    return f'🎉 Congratulations to {author_name} for merging {pr_name} to develop! 🎉:croissant::baguette_bread::flatbread:'
   else:
     return f'🎉 Congratulations to {author_name} for merging {pr_name} to develop! 🎉'
 
