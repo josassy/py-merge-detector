@@ -33,14 +33,14 @@ ___  ___                     ______       _
   if (user_input):
     branch_name = user_input
 
-  checkout(branch_name)
+  checkout(repo, branch_name)
 
   while not done:
     update(repo, branch_name)
     time.sleep(60*15)
 
-def checkout(branch_name: str):
-  repo = Repo(REPO_NAME)
+def checkout(repo_name: str, branch_name: str):
+  repo = Repo(repo_name)
   repo.git.fetch()
   print(repo.git.checkout(branch_name))
 
