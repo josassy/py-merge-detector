@@ -117,7 +117,6 @@ def get_message(author_name: str, pr_name: str, branch_name: str) -> tuple:
     (f"Shout out to {first_name} for finishing a thing today. :+1:", False),
     (f"It's {weekday}, and something was just merged. I'm too tired to tell you what it was. :sleeping:", True),
     (f"I see you, {first_name} :eyes:", False),
-    (f"\"_mErGe bOt iS gEtTiNg sPiCy_\" :face_with_rolling_eyes: (gg {first_name} for finally merging {pr_name})", False),
     (f"I need a vacation. So does {first_name} after their latest PR. :palm_tree:", False),
     (f"{pr_name} just got merged to {branch_name}. I won't tell you who did it. :see_no_evil:", True),
     (f"{pr_name} just got merged to {branch_name}. Everyone say, gogo {first_name}! :rocket:", False),

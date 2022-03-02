@@ -1,4 +1,4 @@
 WEBHOOK_URL = ""
-RECORD_NAME = ''
+RECORD_NAME = 'record.json'
 DEFAULT_REPO = ''
-DEFAULT_BRANCH = ''
+DEFAULT_BRANCH = 'develop'
